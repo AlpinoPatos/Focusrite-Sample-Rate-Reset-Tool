@@ -1,12 +1,12 @@
 # Focusrite Sample Rate Reset Tool
 
-A lightweight, zero-bloat Windows system tray utility that fixes the **USB isochronous clock drift** ("robotic / distorted / crackling audio") bug on Focusrite interfaces using a customizable global hotkey (`Ctrl + Alt + R` by default).
+Lightweight Windows tray utility to **recover from** Focusrite USB audio **distorted / robotic audio** via a customizable hotkey (Ctrl+Alt+R by default).
 
 ## The Problem
 
-On Windows 10/11, Focusrite USB audio interfaces can occasionally lose synchronization between the Windows Audio Engine (`Audiosrv`) ring buffer and the hardware clock, resulting in heavily distorted, robotic audio output. The standard workaround requires manually opening **Focusrite Control**, changing the sample rate (e.g., `48 kHz` -> `44.1 kHz`), waiting ~1 second for the hardware clock to re-lock, and switching it back.
+On Windows 10/11, Focusrite USB audio interfaces can occasionally start outputting heavily distorted, robotic, or crackling audio. The standard manual workaround is opening **Focusrite Control**, changing the sample rate (e.g., `48 kHz` -> `44.1 kHz`), waiting ~1 second, and switching it back to force the audio stream to re-initialize.
 
-Standard Windows Core Audio APIs (`IPolicyConfig`) reject external sample rate changes while the Focusrite driver locks the hardware clock.
+Standard Windows Core Audio APIs (`IPolicyConfig`) reject external sample rate changes while the Focusrite driver holds the clock lock.
 
 ## How It Works
 
