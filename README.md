@@ -1,6 +1,6 @@
 # Focusrite Sample Rate Reset Tool
 
-Lightweight Windows tray utility to **recover from** Focusrite USB audio **distorted / robotic audio** via a customizable hotkey (Ctrl+Alt+R by default).
+Lightweight Windows tray utility to **recover from** Focusrite USB audio **distorted / robotic audio** via a customizable hotkey (`Ctrl+Alt+R` by default).
 
 ## The Problem
 
@@ -10,7 +10,7 @@ Standard Windows Core Audio APIs (`IPolicyConfig`) reject external sample rate c
 
 ## How It Works
 
-Instead of kernel-mode hacks or restarting Windows audio services (which breaks active game/VoIP audio routing), this tool communicates directly with the **Focusrite USB ASIO COM driver** (`IASIO`) via `ctypes` and `comtypes`:
+Instead of kernel-mode hacks or restarting Windows audio services (which breaks active game/VoIP audio routing), this tool communicates directly with the **Focusrite USB ASIO COM driver** (`IASIO`) via the Win32 COM API:
 
 1. Dynamically resolves the `Focusrite USB ASIO` driver `CLSID` from `HKLM\SOFTWARE\ASIO`.
 2. Reads the active hardware sample rate (`getSampleRate`).
@@ -22,24 +22,16 @@ Instead of kernel-mode hacks or restarting Windows audio services (which breaks 
 - **Customizable Global Hotkey (`Ctrl + Alt + R` default):** Uses the native Win32 `RegisterHotKey` API (0% idle CPU usage, no low-level keyboard hooks, safe alongside kernel-level anti-cheats). Assign any key combination directly from the system tray menu.
 - **Configurable Lock Delay:** Right-click the system tray icon to choose between `1.0s`, `1.2s` (default), `1.5s`, and `2.0s` switching intervals.
 - **One-Click Auto-Start:** Includes `install_autostart.cmd` and `uninstall_autostart.cmd` scripts to manage Windows startup cleanly without requiring administrator privileges.
-- **Portable & Zero-Bloat:** Standalone `.exe` that stores settings in a local `config.json` in the application directory without touching the Windows Registry.
+- **Portable & Zero-Bloat:** Standalone `.exe` that stores settings locally in the application directory without touching the Windows Registry.
 
 ## Usage
 
-1. Download `FocusriteSampleRateResetTool-v1.0.0.zip` from the [Releases](../../releases) page and extract it to a permanent folder.
+1. Download the release archive from the [Releases](../../releases) page and extract it to a permanent folder.
 2. Run `FocusriteSampleRateResetTool.exe` — it minimizes to the Windows System Tray.
 3. Whenever audio distortion occurs, press **`Ctrl + Alt + R`** (or right-click the tray icon to trigger a reset or customize the hotkey).
 4. *(Optional)* Run `install_autostart.cmd` to launch automatically with Windows, or `uninstall_autostart.cmd` to remove it.
 
-## Building from Source
+## Verification (SHA-256)
 
-Requires Windows and Python 3.10+:
-
-```bash
-pip install -r requirements.txt
-pyinstaller --onefile --noconsole --name "FocusriteSampleRateResetTool" --icon "icon.ico" --hidden-import "pystray._win32" app.py
-```
-
-## Disclaimer
-
-Tested on a Focusrite Scarlett 2i2 4th Gen on Windows 11. This is an independent community utility and is not affiliated with or endorsed by Focusrite Audio Engineering Ltd.
+```text
+BCD171E8BF1329AA6B204BAD0C0F97F2651214D1BB2AEA466DE61FDE60BACCDA
