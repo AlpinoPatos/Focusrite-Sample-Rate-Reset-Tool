@@ -31,6 +31,10 @@ Instead of kernel-mode hacks or restarting Windows audio services (which breaks 
 3. Whenever audio distortion occurs, press **`Ctrl + Alt + R`** (or right-click the tray icon to trigger a reset or customize the hotkey).
 4. *(Optional)* Run `install_autostart.cmd` to launch automatically with Windows, or `uninstall_autostart.cmd` to remove it.
 
+## Disclaimer
+
+Tested on a Focusrite Scarlett 2i2 4th Gen on Windows 11. This is an independent community utility and is not affiliated with or endorsed by Focusrite Audio Engineering Ltd.
+
 ## Verification (SHA-256)
 
 ```text
